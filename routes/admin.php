@@ -1,24 +1,22 @@
 <?php
-
+//登录、退出
 Route::group(['namespace'=>'Admin','prefix'=>'admin'],function (){
-    //登录
     Route::get('login','LoginController@showLoginForm')->name('login');
-    //登录验证
     Route::post('login','LoginController@login')->name('admin.login');
-    //退出
     Route::get('logout','LoginController@logout')->name('logout');
 
 });
 
-
-
-Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','permission:system.manage']],function (){
-    //后台首页
+//后台公共部分
+Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth'],function (){
     Route::get('/','IndexController@index')->name('admin.index');
     Route::get('index','IndexController@index')->name('admin.index');
+});
+
+//系统管理
+Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','permission:system.manage']],function (){
     //数据表格接口
     Route::get('data','IndexController@data')->name('admin.data')->middleware('permission:system.role|system.user|system.permission');
-
     //用户管理
     Route::group(['middleware'=>'permission:system.user'],function (){
         Route::get('user','UserController@index')->name('admin.user');
@@ -37,9 +35,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
         Route::get('user/{id}/permission','UserController@permission')->name('admin.user.permission')->middleware('permission:system.user.permission');
         Route::put('user/{id}/assignPermission','UserController@assignPermission')->name('admin.user.assignPermission')->middleware('permission:system.user.permission');
     });
-
+    //角色管理
     Route::group(['middleware'=>'permission:system.role'],function (){
-        //角色管理
         Route::get('role','RoleController@index')->name('admin.role');
         //添加角色
         Route::get('role/create','RoleController@create')->name('admin.role.create')->middleware('permission:system.role.create');
@@ -53,9 +50,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
         Route::get('role/{id}/permission','RoleController@permission')->name('admin.role.permission')->middleware('permission:system.role.permission');
         Route::put('role/{id}/assignPermission','RoleController@assignPermission')->name('admin.role.assignPermission')->middleware('permission:system.role.permission');
     });
-
+    //权限管理
     Route::group(['middleware'=>'permission:system.permission'],function (){
-        //权限管理
         Route::get('permission','PermissionController@index')->name('admin.permission');
         //添加权限
         Route::get('permission/create','PermissionController@create')->name('admin.permission.create')->middleware('permission:system.permission.create');
@@ -66,8 +62,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
         //删除权限
         Route::delete('permission/destroy','PermissionController@destroy')->name('admin.permission.destroy')->middleware('permission:system.permission.destroy');
     });
-
-
 });
 
 

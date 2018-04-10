@@ -39,16 +39,22 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-
+                @can('system.manage')
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;"><i class="layui-icon">&#xe631;</i> 系统管理</a>
                     <dl class="layui-nav-child">
+                        @can('system.role')
                         <dd><a href="{{ route('admin.role') }}"><i class="layui-icon">&#xe61b;</i> 角色管理</a></dd>
+                        @endcan
+                        @can('system.user')
                         <dd><a href="{{ route('admin.user') }}"><i class="layui-icon">&#xe612;</i> 用户管理</a></dd>
+                        @endcan
+                        @can('system.permission')
                         <dd><a href="{{ route('admin.permission') }}"><i class="layui-icon">&#xe614;</i> 权限管理</a></dd>
+                        @endcan
                     </dl>
                 </li>
-
+                @endcan
             </ul>
         </div>
     </div>
