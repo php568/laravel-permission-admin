@@ -11,6 +11,16 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        //清空表
+        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \Illuminate\Support\Facades\DB::table('model_has_permissions')->truncate();
+        \Illuminate\Support\Facades\DB::table('model_has_roles')->truncate();
+        \Illuminate\Support\Facades\DB::table('role_has_permissions')->truncate();
+        \Illuminate\Support\Facades\DB::table('users')->truncate();
+        \Illuminate\Support\Facades\DB::table('roles')->truncate();
+        \Illuminate\Support\Facades\DB::table('permissions')->truncate();
+        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         //用户
         $user = \App\User::create([
             'name'  => 'root',
