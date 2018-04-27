@@ -32,7 +32,7 @@ class DistrictTableSeeder extends Seeder
             $data = $res->districts[0]->districts;
             foreach ($data as $d1){
                 //插入省
-                $province = \App\District::create([
+                $province = \App\Models\District::create([
                     'adcode'    => $d1->adcode,
                     'name'      => $d1->name,
                     'center'    => $d1->center,
@@ -41,7 +41,7 @@ class DistrictTableSeeder extends Seeder
                 if (isset($d1->districts) && !empty($d1->districts)){
                     foreach ($d1->districts as $d2){
                         //插入市
-                        $city = \App\District::create([
+                        $city = \App\Models\District::create([
                             'adcode'    => $d2->adcode,
                             'name'      => $d2->name,
                             'center'    => $d2->center,
@@ -51,7 +51,7 @@ class DistrictTableSeeder extends Seeder
                         if (isset($d2->districts) && !empty($d2->districts)){
                             foreach ($d2->districts as $d3){
                                 //插入区县
-                                $qu = \App\District::create([
+                                $qu = \App\Models\District::create([
                                     'adcode'    => $d3->adcode,
                                     'name'      => $d3->name,
                                     'center'    => $d3->center,
@@ -61,7 +61,7 @@ class DistrictTableSeeder extends Seeder
                                 if (isset($d3->districts) && !empty($d3->districts)){
                                     foreach ($d3->districts as $d4){
                                         //插入乡镇
-                                        $zhen = \App\District::create([
+                                        $zhen = \App\Models\District::create([
                                             'adcode'    => $d4->adcode,
                                             'name'      => $d4->name,
                                             'center'    => $d4->center,

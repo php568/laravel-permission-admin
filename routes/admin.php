@@ -5,6 +5,14 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function (){
     Route::post('login','LoginController@login')->name('admin.login');
     Route::get('logout','LoginController@logout')->name('logout');
 
+    //找回密码
+    Route::get('password/email','ForgotPasswordController@showLinkRequestForm')->name('password.email');
+    Route::post('password/send','ForgotPasswordController@sendResetLinkEmail')->name('password.send');
+
+    //重置密码
+    Route::get('password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset','ResetPasswordController@reset')->name('password.update');
+
 });
 
 //后台公共部分
