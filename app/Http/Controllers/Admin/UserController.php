@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         $data = $request->only(['name','email','phone','password']);
         if (User::create($data)){
-            return redirect()->to(route('admin.user'))->with(['alert-msg'=>'添加用户成功']);
+            return redirect()->to(route('admin.user'))->with(['status'=>'添加用户成功']);
         }
         return redirect()->to(route('admin.user'))->withErrors('系统错误');
     }
@@ -90,7 +90,7 @@ class UserController extends Controller
             $data['password'] = $request->get('password');
         }
         if ($user->update($data)){
-            return redirect()->to(route('admin.user'))->with(['alert-msg'=>'更新用户成功']);
+            return redirect()->to(route('admin.user'))->with(['status'=>'更新用户成功']);
         }
         return redirect()->to(route('admin.user'))->withErrors('系统错误');
     }
@@ -139,9 +139,9 @@ class UserController extends Controller
         if (!$user){
             return redirect()->to(route('admin.user'))->withErrors('用户不存在');
         }
-        $roles = $request->get('roles');
+        $roles = $request->get('roles',[]);
        if ($user->syncRoles($roles)){
-           return redirect()->to(route('admin.user'))->with(['alert-msg'=>'更新用户角色成功']);
+           return redirect()->to(route('admin.user'))->with(['status'=>'更新用户角色成功']);
        }
         return redirect()->to(route('admin.user'))->withErrors('系统错误');
     }
@@ -185,10 +185,10 @@ class UserController extends Controller
 
         if (empty($permissions)){
             $user->permissions()->detach();
-            return redirect()->to(route('admin.user'))->with(['alert-msg'=>'已更新用户直接权限']);
+            return redirect()->to(route('admin.user'))->with(['status'=>'已更新用户直接权限']);
         }
         $user->syncPermissions($permissions);
-        return redirect()->to(route('admin.user'))->with(['alert-msg'=>'已更新用户直接权限']);
+        return redirect()->to(route('admin.user'))->with(['status'=>'已更新用户直接权限']);
     }
 
 }

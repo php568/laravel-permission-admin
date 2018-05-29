@@ -179,6 +179,8 @@ return [
 
         Germey\Geetest\GeetestServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Yansongda\LaravelPay\PayServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
     ],
 
     /*
@@ -229,6 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Geetest' => Germey\Geetest\Geetest::class,
+        'Pay' => Yansongda\LaravelPay\Facades\Pay::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
     ],
 

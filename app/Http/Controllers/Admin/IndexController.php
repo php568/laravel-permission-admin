@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Yansongda\LaravelPay\Facades\Pay;
+use QrCode;
 
 class IndexController extends Controller
 {
@@ -45,6 +47,26 @@ class IndexController extends Controller
             'data'  => $res['data']
         ];
         return response()->json($data);
+    }
+
+    public function testPay()
+    {
+        $order = [
+            'out_trade_no' => time(),
+            'body' => 'subject-测试',
+            'total_fee'      => '1',
+            //'openid' => 'onkVf1FjWS5SBIixxxxxxxxx',
+        ];
+
+        $result = Pay::wechat()->scan($order);
+        $qr = $result->code_url;
+        return QrCode::size(200)->generate($qr);
+
+    }
+
+    public function notify()
+    {
+        return 123;
     }
 
 }

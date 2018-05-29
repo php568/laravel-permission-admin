@@ -42,7 +42,7 @@ class PermissionController extends Controller
     {
         $data = $request->only(['name','display_name','parent_id']);
         if (Permission::create($data)){
-            return redirect()->to(route('admin.permission'))->with(['alert-msg'=>'添加权限成功']);
+            return redirect()->to(route('admin.permission'))->with(['status'=>'添加权限成功']);
         }
         return redirect()->to(route('admin.permission'))->withErrors('系统错误');
     }
@@ -89,7 +89,7 @@ class PermissionController extends Controller
         }
         $data = $request->only(['name','display_name','parent_id']);
         if ($permission->update($data)){
-            return redirect()->to(route('admin.permission'))->with(['alert-msg'=>'更新权限成功']);
+            return redirect()->to(route('admin.permission'))->with(['status'=>'更新权限成功']);
         }
         return redirect()->to(route('admin.permission'))->withErrors('系统错误');
     }

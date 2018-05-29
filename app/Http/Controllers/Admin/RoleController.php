@@ -40,7 +40,7 @@ class RoleController extends Controller
     {
         $data = $request->only(['name','display_name']);
         if (Role::create($data)){
-            return redirect()->to(route('admin.role'))->with(['alert-msg'=>'添加角色成功']);
+            return redirect()->to(route('admin.role'))->with(['status'=>'添加角色成功']);
         }
         return redirect()->to(route('admin.role'))->withErrors('系统错误');
     }
@@ -86,7 +86,7 @@ class RoleController extends Controller
         }
         $data = $request->only(['name','display_name']);
         if ($role->update($data)){
-            return redirect()->to(route('admin.role'))->with(['alert-msg'=>'更新角色成功']);
+            return redirect()->to(route('admin.role'))->with(['status'=>'更新角色成功']);
         }
         return redirect()->to(route('admin.role'))->withErrors('系统错误');
     }
@@ -149,10 +149,10 @@ class RoleController extends Controller
 
         if (empty($permissions)){
             $role->permissions()->detach();
-            return redirect()->to(route('admin.role'))->with(['alert-msg'=>'已更新角色权限']);
+            return redirect()->to(route('admin.role'))->with(['status'=>'已更新角色权限']);
         }
         $role->syncPermissions($permissions);
-        return redirect()->to(route('admin.role'))->with(['alert-msg'=>'已更新角色权限']);
+        return redirect()->to(route('admin.role'))->with(['status'=>'已更新角色权限']);
     }
 
 }
