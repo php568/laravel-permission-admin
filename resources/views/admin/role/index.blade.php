@@ -4,23 +4,25 @@
     <div class="layui-elem-quote">角色管理</div>
     <div class="layui-btn-group">
         @can('system.role.destroy')
-        <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete"><i class="layui-icon">&#xe640;</i>删 除</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>
         @endcan
         @can('system.role.create')
-        <a class="layui-btn layui-btn-sm" href="{{ route('admin.role.create') }}"><i class="layui-icon">&#xe654;</i>添 加</a>
+        <a class="layui-btn layui-btn-sm" href="{{ route('admin.role.create') }}">添 加</a>
         @endcan
     </div>
     <table id="dataTable" lay-filter="dataTable"></table>
     <script type="text/html" id="options">
-        @can('system.role.edit')
-        <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-        @endcan
-        @can('system.role.permission')
-        <a class="layui-btn layui-btn-sm" lay-event="permission"><i class="layui-icon">&#xe614;</i>权限</a>
-        @endcan
-        @can('system.role.destroy')
-        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-        @endcan
+        <div class="layui-btn-group">
+            @can('system.role.edit')
+            <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+            @endcan
+            @can('system.role.permission')
+            <a class="layui-btn layui-btn-sm" lay-event="permission">权限</a>
+            @endcan
+            @can('system.role.destroy')
+            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+            @endcan
+        </div>
     </script>
 @endsection
 

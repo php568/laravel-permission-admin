@@ -40,10 +40,16 @@ class UserTableSeeder extends Seeder
             [
                 'name' => 'system.manage',
                 'display_name' => '系统管理',
+                'route' => '',
+                'url' => '',
+                'icon_id' => '100',
                 'child' => [
                     [
                         'name' => 'system.user',
                         'display_name' => '用户管理',
+                        'route' => 'admin.user',
+                        'url' => '',
+                        'icon_id' => '123',
                         'child' => [
                             ['name' => 'system.user.create', 'display_name' => '添加用户'],
                             ['name' => 'system.user.edit', 'display_name' => '编辑用户'],
@@ -55,6 +61,9 @@ class UserTableSeeder extends Seeder
                     [
                         'name' => 'system.role',
                         'display_name' => '角色管理',
+                        'route' => 'admin.role',
+                        'url' => '',
+                        'icon_id' => '122',
                         'child' => [
                             ['name' => 'system.role.create', 'display_name' => '添加角色'],
                             ['name' => 'system.role.edit', 'display_name' => '编辑角色'],
@@ -65,6 +74,9 @@ class UserTableSeeder extends Seeder
                     [
                         'name' => 'system.permission',
                         'display_name' => '权限管理',
+                        'route' => 'admin.permission',
+                        'url' => '',
+                        'icon_id' => '121',
                         'child' => [
                             ['name' => 'system.permission.create', 'display_name' => '添加权限'],
                             ['name' => 'system.permission.edit', 'display_name' => '编辑权限'],
@@ -85,6 +97,14 @@ class UserTableSeeder extends Seeder
             $role->givePermissionTo($p1);
             //为用户添加权限
             $user->givePermissionTo($p1);
+            //填充到菜单表
+            $m1 = \App\Models\Menu::create([
+                'name' => $pem1['display_name'],
+                'route' => $pem1['route'],
+                'url' => $pem1['url'],
+                'icon_id' => $pem1['icon_id'],
+                'permission' => $pem1['name'],
+            ]);
             if (isset($pem1['child'])) {
                 foreach ($pem1['child'] as $pem2) {
                     //生成二级权限
@@ -97,6 +117,15 @@ class UserTableSeeder extends Seeder
                     $role->givePermissionTo($p2);
                     //为用户添加权限
                     $user->givePermissionTo($p2);
+                    //填充到菜单表
+                    $m2 = \App\Models\Menu::create([
+                        'name' => $pem2['display_name'],
+                        'route' => $pem2['route'],
+                        'url' => $pem2['url'],
+                        'icon_id' => $pem2['icon_id'],
+                        'permission' => $pem2['name'],
+                        'parent_id' => $m1->id,
+                    ]);
                     if (isset($pem2['child'])) {
                         foreach ($pem2['child'] as $pem3) {
                             //生成三级权限
