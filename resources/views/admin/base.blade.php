@@ -38,9 +38,9 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree"  lay-filter="nav">
                 @can('system.manage')
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;"><i class="layui-icon">&#xe631;</i> 系统管理</a>
                     <dl class="layui-nav-child">
                         @can('system.role')
@@ -60,8 +60,7 @@
     </div>
 
     <div class="layui-body">
-        <div style="padding:15px;">
-            <!-- 内容主体区域 -->
+        <div class="layui-fluid" style="padding-top:15px;">
             @yield('content')
         </div>
     </div>
@@ -74,34 +73,44 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("ul[lay-filter='nav'] .layui-nav-child dd a").each(function () {
+            var href = $(this).attr('href');
+            var url = window.location.href;
+            var flag = url.indexOf(href);
+            if (flag == 0) {
+                $(this).parents('.layui-nav-item').addClass('layui-nav-itemed');
+                $(this).parent().addClass('layui-this');
+                $(this).siblings().removeClass('layui-nav-itemed');
+            }
+        });
+    });
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
+    var element = layui.element;
+    var layer = layui.layer;
+    var form = layui.form;
+    var table = layui.table;
 
-        var element = layui.element;
-        var layer = layui.layer;
-        var form = layui.form;
-        var table = layui.table;
+    form.render();
+    element.render();
 
-        form.render();
-        element.render();
+    //统一错误提示信息
+    @if(count($errors)>0)
+    var errorStr = '';
+    @foreach($errors->all() as $error)
+        errorStr += "{{$error}}<br />";
+    @endforeach
+        layer.msg(errorStr);
+    @endif
 
-        //统一错误提示信息
-        @if(count($errors)>0)
-        var errorStr = '';
-        @foreach($errors->all() as $error)
-            errorStr += "{{$error}}<br />";
-        @endforeach
-            layer.msg(errorStr);
-        @endif
-
-        @if(session('status'))
-            layer.msg("{{session('status')}}");
-        @endif
-
+    @if(session('status'))
+        layer.msg("{{session('status')}}");
+    @endif
 
     //删除确认
     function delConfirm(url) {
