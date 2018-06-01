@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('users')->truncate();
         \Illuminate\Support\Facades\DB::table('roles')->truncate();
         \Illuminate\Support\Facades\DB::table('permissions')->truncate();
+        \Illuminate\Support\Facades\DB::table('menus')->truncate();
         \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         //用户

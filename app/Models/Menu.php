@@ -12,6 +12,12 @@ class Menu extends Model
     //菜单图标
     public function icon()
     {
-        return $this->belongsTo('App\Models\Icon','id','icon_id');
+        return $this->belongsTo('App\Models\Icon','icon_id','id');
+    }
+
+    //子菜单
+    public function subMenus()
+    {
+        return $this->hasMany('App\Models\Menu','parent_id','id');
     }
 }

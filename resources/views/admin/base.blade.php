@@ -39,22 +39,22 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="nav">
+                @foreach($menus as $menu)
                 @can('system.manage')
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;"><i class="layui-icon">&#xe631;</i> 系统管理</a>
+                    <a href="javascript:;"><i class="layui-icon {{$menu->icon->class}}"></i> {{$menu->name}}</a>
+                    @if(!$menu->subMenus->isEmpty())
                     <dl class="layui-nav-child">
-                        @can('system.role')
-                        <dd><a href="{{ route('admin.role') }}"><i class="layui-icon">&#xe61b;</i> 角色管理</a></dd>
+                        @foreach($menu->subMenus as $subMenu)
+                        @can($subMenu->permission)
+                        <dd><a href="{{ route($subMenu->route) }}"><i class="layui-icon {{$subMenu->icon->class}}"></i> {{$subMenu->name}}</a></dd>
                         @endcan
-                        @can('system.user')
-                        <dd><a href="{{ route('admin.user') }}"><i class="layui-icon">&#xe612;</i> 用户管理</a></dd>
-                        @endcan
-                        @can('system.permission')
-                        <dd><a href="{{ route('admin.permission') }}"><i class="layui-icon">&#xe614;</i> 权限管理</a></dd>
-                        @endcan
+                        @endforeach
                     </dl>
+                    @endif
                 </li>
                 @endcan
+                @endforeach
             </ul>
         </div>
     </div>
