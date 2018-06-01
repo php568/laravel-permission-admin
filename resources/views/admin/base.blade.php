@@ -40,20 +40,24 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="nav">
                 @foreach($menus as $menu)
-                @can('system.manage')
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon {{$menu->icon->class}}"></i> {{$menu->name}}</a>
-                    @if(!$menu->subMenus->isEmpty())
-                    <dl class="layui-nav-child">
-                        @foreach($menu->subMenus as $subMenu)
-                        @can($subMenu->permission)
-                        <dd><a href="{{ route($subMenu->route) }}"><i class="layui-icon {{$subMenu->icon->class}}"></i> {{$subMenu->name}}</a></dd>
+                    @if($menu->permission)
+                        @can($menu->permission->name)
+                        <li class="layui-nav-item">
+                            <a href="javascript:;"><i class="layui-icon {{$menu->icon->class}}"></i> {{$menu->name}}</a>
+                            @if(!$menu->subMenus->isEmpty())
+                            <dl class="layui-nav-child">
+                                @foreach($menu->subMenus as $subMenu)
+                                    @if($subMenu->permission)
+                                        @can($subMenu->permission->name)
+                                        <dd><a href="{{ route($subMenu->route) }}"><i class="layui-icon {{$subMenu->icon->class}}"></i> {{$subMenu->name}}</a></dd>
+                                        @endcan
+                                    @endif
+                                @endforeach
+                            </dl>
+                            @endif
+                        </li>
                         @endcan
-                        @endforeach
-                    </dl>
                     @endif
-                </li>
-                @endcan
                 @endforeach
             </ul>
         </div>

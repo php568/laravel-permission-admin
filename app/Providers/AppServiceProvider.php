@@ -15,12 +15,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-
         //左侧菜单
-        $menus = \App\Models\Menu::with(['subMenus'=>function($query){
-            $query->with('icon')->orderBy('sort','desc');
-        },'icon'])->where('parent_id',0)->orderBy('sort','desc')->get();
-        view()->share('menus',$menus);
+        view()->composer('admin.base',function($view){
+            $menus = \App\Models\Menu::with([
+                'subMenus'=>function($query){$query->with(['icon','permission']);}
+                ,'permission','icon'])->where('parent_id',0)->orderBy('sort','desc')->get();
+            $view->with('menus',$menus);
+        });
+
     }
 
     /**
