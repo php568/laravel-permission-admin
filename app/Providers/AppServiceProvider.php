@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Permission;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,12 +18,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         //左侧菜单
         view()->composer('admin.base',function($view){
-            $menus = \App\Models\Menu::with([
-                'subMenus'=>function($query){$query->with(['icon','permission']);}
-                ,'permission','icon'])->where('parent_id',0)->orderBy('sort','desc')->get();
+            $menus = \App\Models\Permission::with([
+                'childs'=>function($query){$query->with('icon');}
+                ,'icon'])->where('parent_id',0)->orderBy('sort','desc')->get();
             $view->with('menus',$menus);
         });
-
     }
 
     /**

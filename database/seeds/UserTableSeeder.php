@@ -50,7 +50,7 @@ class UserTableSeeder extends Seeder
                         'route' => 'admin.user',
                         'icon_id' => '123',
                         'child' => [
-                            ['name' => 'system.user.create', 'display_name' => '添加用户'],
+                            ['name' => 'system.user.create', 'display_name' => '添加用户','route'],
                             ['name' => 'system.user.edit', 'display_name' => '编辑用户'],
                             ['name' => 'system.user.destroy', 'display_name' => '删除用户'],
                             ['name' => 'system.user.role', 'display_name' => '分配角色'],
@@ -61,7 +61,7 @@ class UserTableSeeder extends Seeder
                         'name' => 'system.role',
                         'display_name' => '角色管理',
                         'route' => 'admin.role',
-                        'icon_id' => '122',
+                        'icon_id' => '121',
                         'child' => [
                             ['name' => 'system.role.create', 'display_name' => '添加角色'],
                             ['name' => 'system.role.edit', 'display_name' => '编辑角色'],
@@ -73,7 +73,7 @@ class UserTableSeeder extends Seeder
                         'name' => 'system.permission',
                         'display_name' => '权限管理',
                         'route' => 'admin.permission',
-                        'icon_id' => '121',
+                        'icon_id' => '12',
                         'child' => [
                             ['name' => 'system.permission.create', 'display_name' => '添加权限'],
                             ['name' => 'system.permission.edit', 'display_name' => '编辑权限'],
@@ -89,45 +89,36 @@ class UserTableSeeder extends Seeder
             $p1 = \Spatie\Permission\Models\Permission::create([
                 'name' => $pem1['name'],
                 'display_name' => $pem1['display_name'],
+                'route' => $pem1['route']??'',
+                'icon_id' => $pem1['icon_id']??1,
             ]);
             //为角色添加权限
             $role->givePermissionTo($p1);
             //为用户添加权限
             $user->givePermissionTo($p1);
-            //填充到菜单表
-            $m1 = \App\Models\Menu::create([
-                'name' => $pem1['display_name'],
-                'route' => $pem1['route'],
-                'icon_id' => $pem1['icon_id'],
-                'permission_id' => $p1->id,
-            ]);
             if (isset($pem1['child'])) {
                 foreach ($pem1['child'] as $pem2) {
                     //生成二级权限
                     $p2 = \Spatie\Permission\Models\Permission::create([
                         'name' => $pem2['name'],
                         'display_name' => $pem2['display_name'],
-                        'parent_id' => $p1->id
+                        'parent_id' => $p1->id,
+                        'route' => $pem2['route']??1,
+                        'icon_id' => $pem2['icon_id']??1,
                     ]);
                     //为角色添加权限
                     $role->givePermissionTo($p2);
                     //为用户添加权限
                     $user->givePermissionTo($p2);
-                    //填充到菜单表
-                    $m2 = \App\Models\Menu::create([
-                        'name' => $pem2['display_name'],
-                        'route' => $pem2['route'],
-                        'icon_id' => $pem2['icon_id'],
-                        'permission_id' => $p2->id,
-                        'parent_id' => $m1->id,
-                    ]);
                     if (isset($pem2['child'])) {
                         foreach ($pem2['child'] as $pem3) {
                             //生成三级权限
                             $p3 = \Spatie\Permission\Models\Permission::create([
                                 'name' => $pem3['name'],
                                 'display_name' => $pem3['display_name'],
-                                'parent_id' => $p2->id
+                                'parent_id' => $p2->id,
+                                'route' => $pem3['route']??'',
+                                'icon_id' => $pem3['icon_id']??1,
                             ]);
                             //为角色添加权限
                             $role->givePermissionTo($p3);
