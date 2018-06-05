@@ -161,6 +161,25 @@ class UserTableSeeder extends Seeder
                     ],
                 ]
             ],
+            [
+                'name' => 'member.manage',
+                'display_name' => '会员管理',
+                'route' => '',
+                'icon_id' => '59',
+                'child' => [
+                    [
+                        'name' => 'member.member',
+                        'display_name' => '账号管理',
+                        'route' => 'admin.member',
+                        'icon_id' => '10',
+                        'child' => [
+                            ['name' => 'member.member.create', 'display_name' => '添加账号'],
+                            ['name' => 'member.member.edit', 'display_name' => '编辑账号'],
+                            ['name' => 'member.member.destroy', 'display_name' => '删除账号'],
+                        ]
+                    ],
+                ]
+            ]
         ];
 
         foreach ($permissions as $pem1) {

@@ -163,3 +163,18 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::delete('advert/destroy', 'AdvertController@destroy')->name('admin.advert.destroy')->middleware('permission:config.advert.destroy');
     });
 });
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'permission:member.manage']], function () {
+    //账号管理
+    Route::group(['middleware' => 'permission:member.member'], function () {
+        Route::get('member/data', 'MemberController@data')->name('admin.member.data');
+        Route::get('member', 'MemberController@index')->name('admin.member');
+        //添加
+        Route::get('member/create', 'MemberController@create')->name('admin.member.create')->middleware('permission:member.member.create');
+        Route::post('member/store', 'MemberController@store')->name('admin.member.store')->middleware('permission:member.member.create');
+        //编辑
+        Route::get('member/{id}/edit', 'MemberController@edit')->name('admin.member.edit')->middleware('permission:member.member.edit');
+        Route::put('member/{id}/update', 'MemberController@update')->name('admin.member.update')->middleware('permission:member.member.edit');
+        //删除
+        Route::delete('member/destroy', 'MemberController@destroy')->name('admin.member.destroy')->middleware('permission:member.member.destroy');
+    });
+});
