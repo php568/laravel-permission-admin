@@ -7,9 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Yansongda\LaravelPay\Facades\Pay;
-use QrCode;
+use App\Models\Role;
+
 
 class IndexController extends Controller
 {

@@ -62,6 +62,19 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+        'qiniu' => [
+            'driver'  => 'qiniu',
+            'domains' => [
+                'default'   => 'o95vn3gtk.bkt.clouddn.com', //你的七牛域名
+                'https'     => '',         //你的HTTPS域名
+                'custom'    => '',                //Useless 没啥用，请直接使用上面的 default 项
+            ],
+            'access_key'=> '1JdLd1hJq8j99yKGwgPgE_p0s8PAQ3UNZIKtLXaV',  //AccessKey
+            'secret_key'=> 'e-mpwUbtfF8cv0aCUOvqimlIdexaavYtV_yjyhQG',  //SecretKey
+            'bucket'    => 'muzilong',  //Bucket名字
+            'notify_url'=> '',  //持久化处理回调地址
+            'access'    => 'public'  //空间访问控制 public 或 private
+        ],
 
     ],
 

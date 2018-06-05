@@ -48,9 +48,7 @@
         <input class="layui-input" type="hidden" name="icon_id" >
     </div>
     <div class="layui-form-mid layui-word-aux" id="icon_box">
-        @if($permission)
         <i class="layui-icon {{$permission->icon->class??''}}"></i> {{$permission->icon->name??''}}
-        @endif
     </div>
     <div class="layui-form-mid layui-word-aux">
         <button type="button" class="layui-btn layui-btn-xs" onclick="showIconsBox()">选择图标</button>

@@ -19,7 +19,6 @@ class UserTableSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('users')->truncate();
         \Illuminate\Support\Facades\DB::table('roles')->truncate();
         \Illuminate\Support\Facades\DB::table('permissions')->truncate();
-        \Illuminate\Support\Facades\DB::table('menus')->truncate();
         \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         //用户
@@ -78,6 +77,86 @@ class UserTableSeeder extends Seeder
                             ['name' => 'system.permission.create', 'display_name' => '添加权限'],
                             ['name' => 'system.permission.edit', 'display_name' => '编辑权限'],
                             ['name' => 'system.permission.destroy', 'display_name' => '删除权限'],
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'name' => 'zixun.manage',
+                'display_name' => '资讯管理',
+                'route' => '',
+                'icon_id' => '100',
+                'child' => [
+                    [
+                        'name' => 'zixun.category',
+                        'display_name' => '分类管理',
+                        'route' => 'admin.category',
+                        'icon_id' => '29',
+                        'child' => [
+                            ['name' => 'zixun.category.create', 'display_name' => '添加分类'],
+                            ['name' => 'zixun.category.edit', 'display_name' => '编辑分类'],
+                            ['name' => 'zixun.category.destroy', 'display_name' => '删除分类'],
+                        ]
+                    ],
+                    [
+                        'name' => 'zixun.tag',
+                        'display_name' => '标签管理',
+                        'route' => 'admin.tag',
+                        'icon_id' => '15',
+                        'child' => [
+                            ['name' => 'zixun.tag.create', 'display_name' => '添加标签'],
+                            ['name' => 'zixun.tag.edit', 'display_name' => '编辑标签'],
+                            ['name' => 'zixun.tag.destroy', 'display_name' => '删除标签'],
+                        ]
+                    ],
+                    [
+                        'name' => 'zixun.article',
+                        'display_name' => '文章管理',
+                        'route' => 'admin.article',
+                        'icon_id' => '89',
+                        'child' => [
+                            ['name' => 'zixun.article.create', 'display_name' => '添加文章'],
+                            ['name' => 'zixun.article.edit', 'display_name' => '编辑文章'],
+                            ['name' => 'zixun.article.destroy', 'display_name' => '删除文章'],
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'name' => 'config.manage',
+                'display_name' => '配置管理',
+                'route' => '',
+                'icon_id' => '28',
+                'child' => [
+                    [
+                        'name' => 'config.site',
+                        'display_name' => '站点配置',
+                        'route' => 'admin.site',
+                        'icon_id' => '25',
+                        'child' => [
+                            ['name' => 'config.site.update', 'display_name' => '更新配置',]
+                        ]
+                    ],
+                    [
+                        'name' => 'config.position',
+                        'display_name' => '广告位置',
+                        'route' => 'admin.position',
+                        'icon_id' => '30',
+                        'child' => [
+                            ['name' => 'config.position.create', 'display_name' => '添加广告位',],
+                            ['name' => 'config.position.edit', 'display_name' => '编辑广告位',],
+                            ['name' => 'config.position.destroy', 'display_name' => '删除广告位',],
+                        ]
+                    ],
+                    [
+                        'name' => 'config.advert',
+                        'display_name' => '广告信息',
+                        'route' => 'admin.advert',
+                        'icon_id' => '107',
+                        'child' => [
+                            ['name' => 'config.advert.create', 'display_name' => '添加信息',],
+                            ['name' => 'config.advert.edit', 'display_name' => '编辑信息',],
+                            ['name' => 'config.advert.destroy', 'display_name' => '删除信息',],
                         ]
                     ],
                 ]

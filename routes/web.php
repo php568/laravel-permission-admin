@@ -1,5 +1,5 @@
 <?php
-Route::get('/test','Admin\IndexController@testPay');
-Route::get('/notify','Admin\IndexController@notify');
+//文件上传接口，前后台共用
+Route::post('uploadImg', 'PublicController@uploadImg')->name('uploadImg');
 
 

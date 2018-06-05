@@ -180,7 +180,9 @@ return [
         Germey\Geetest\GeetestServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Yansongda\LaravelPay\PayServiceProvider::class,
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Stevenyangecho\UEditor\UEditorServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -233,7 +235,7 @@ return [
         'Geetest' => Germey\Geetest\Geetest::class,
         'Pay' => Yansongda\LaravelPay\Facades\Pay::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];
