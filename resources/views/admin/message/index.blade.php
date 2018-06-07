@@ -1,22 +1,19 @@
 @extends('admin.base')
 
 @section('content')
-    <div class="layui-elem-quote">标签管理</div>
+    <div class="layui-elem-quote">消息管理</div>
     <div class="layui-btn-group ">
-        @can('zixun.tag.destroy')
-            <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>
+        @can('message.message.destroy')
+            <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删除</button>
         @endcan
-        @can('zixun.tag.create')
-            <a class="layui-btn layui-btn-sm" href="{{ route('admin.tag.create') }}">添 加</a>
+        @can('message.message.create')
+            <a class="layui-btn layui-btn-sm" href="{{ route('admin.message.create') }}">添加</a>
         @endcan
     </div>
     <table id="dataTable" lay-filter="dataTable"></table>
     <script type="text/html" id="options">
         <div class="layui-btn-group">
-        @can('zixun.tag.edit')
-        <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
-        @endcan
-        @can('zixun.tag.destroy')
+        @can('message.message.destroy')
         <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
         @endcan
         </div>
@@ -24,21 +21,23 @@
 @endsection
 
 @section('script')
-    @can('zixun.tag')
+    @can('message.message')
         <script>
             //用户表格初始化
             var dataTable = table.render({
                 elem: '#dataTable'
                 ,height: 500
-                ,url: "{{ route('admin.tag.data') }}" //数据接口
+                ,url: "{{ route('admin.message.data') }}" //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
                     ,{field: 'id', title: 'ID', sort: true}
-                    ,{field: 'name', title: '分类名称'}
-                    ,{field: 'sort', title: '排序'}
+                    ,{field: 'title', title: '标题'}
+                    ,{field: 'content', title: '内容'}
+                    ,{field: 'send_uuid', title: '发送人'}
+                    ,{field: 'accept_uuid', title: '接收人'}
+                    ,{field: 'read', title: '是否已读'}
                     ,{field: 'created_at', title: '创建时间'}
-                    ,{field: 'updated_at', title: '更新时间'}
                     ,{fixed: 'right', width: 220, align:'center', toolbar: '#options'}
                 ]]
             });
@@ -49,7 +48,7 @@
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                 if(layEvent === 'del'){
                     layer.confirm('确认删除吗？', function(index){
-                        $.post("{{ route('admin.tag.destroy') }}",{_method:'delete',ids:[data.id]},function (result) {
+                        $.post("{{ route('admin.message.destroy') }}",{_method:'delete',ids:[data.id]},function (result) {
                             if (result.code==0){
                                 obj.del(); //删除对应行（tr）的DOM结构
                             }
@@ -58,7 +57,7 @@
                         });
                     });
                 } else if(layEvent === 'edit'){
-                    location.href = '/admin/tag/'+data.id+'/edit';
+                    location.href = '/admin/message/'+data.id+'/edit';
                 }
             });
 
@@ -74,7 +73,7 @@
                 }
                 if (ids.length>0){
                     layer.confirm('确认删除吗？', function(index){
-                        $.post("{{ route('admin.tag.destroy') }}",{_method:'delete',ids:ids},function (result) {
+                        $.post("{{ route('admin.message.destroy') }}",{_method:'delete',ids:ids},function (result) {
                             if (result.code==0){
                                 dataTable.reload()
                             }

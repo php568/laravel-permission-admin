@@ -40,6 +40,7 @@ class UserController extends Controller
     public function store(UserCreateRequest $request)
     {
         $data = $request->only(['name','email','phone','password']);
+        $data['uuid'] = \Faker\Provider\Uuid::uuid();
         if (User::create($data)){
             return redirect()->to(route('admin.user'))->with(['status'=>'添加用户成功']);
         }

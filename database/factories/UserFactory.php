@@ -18,22 +18,20 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'name' => $faker->name,
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
+        'password' => bcrypt('123456'),
         'remember_token' => str_random(10),
+        'uuid' => \Faker\Provider\Uuid::uuid(),
     ];
 });
 
-$factory->define(\Spatie\Permission\Models\Role::class, function (Faker $faker) {
+$factory->define(App\Models\Member::class, function (Faker $faker) {
     return [
-        'display_name' => $faker->jobTitle,
-        'name' => $faker->jobTitle,
+        'name' => $faker->name,
+        'phone' => $faker->phoneNumber,
+        'avatar' => $faker->imageUrl(),
+        'password' => bcrypt('123456'),
+        'remember_token' => str_random(10),
+        'uuid' => \Faker\Provider\Uuid::uuid(),
     ];
 });
 
-$factory->define(\Spatie\Permission\Models\Permission::class, function (Faker $faker) {
-    return [
-        'display_name' => $faker->word,
-        'name' => $faker->word,
-        'parent_id' => mt_rand(6,20),
-    ];
-});

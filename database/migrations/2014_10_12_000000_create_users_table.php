@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->string('api_token')->nullable()->comment('api接口认证');
+            $table->uuid('uuid');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -20,6 +20,7 @@ class CreateMembersTable extends Migration
             $table->string('password',255)->comment('密码');
             $table->string('avatar',255)->comment('头像')->nullable();
             $table->string('remember_token',150)->comment('记住我')->nullable();
+            $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
         });
