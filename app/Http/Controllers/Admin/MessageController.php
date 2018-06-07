@@ -48,6 +48,8 @@ class MessageController extends Controller
             if ($request->get('user_type')==3){
                 $model = new Member();
             }
+            $keywords = $request->get('keywords');
+
             $res = $model->orderBy('id','desc')->paginate($request->get('limit',30))->toArray();
             $data = [
                 'code' => 0,
