@@ -27,6 +27,7 @@ class UserTableSeeder extends Seeder
             'email' => 'root@dgg.net',
             'phone' => '18988888888',
             'password' => '123456',
+            'uuid'  => \Ramsey\Uuid\Uuid::uuid1(),
         ]);
 
         //角色
@@ -176,6 +177,24 @@ class UserTableSeeder extends Seeder
                             ['name' => 'member.member.create', 'display_name' => '添加账号'],
                             ['name' => 'member.member.edit', 'display_name' => '编辑账号'],
                             ['name' => 'member.member.destroy', 'display_name' => '删除账号'],
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'name' => 'message.manage',
+                'display_name' => '消息管理',
+                'route' => '',
+                'icon_id' => '24',
+                'child' => [
+                    [
+                        'name' => 'message.message',
+                        'display_name' => '消息管理',
+                        'route' => 'admin.message',
+                        'icon_id' => '24',
+                        'child' => [
+                            ['name' => 'message.message.create', 'display_name' => '推送消息'],
+                            ['name' => 'message.message.destroy', 'display_name' => '删除消息'],
                         ]
                     ],
                 ]

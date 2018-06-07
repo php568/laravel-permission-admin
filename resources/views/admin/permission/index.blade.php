@@ -9,6 +9,7 @@
         @can('system.permission.create')
         <a class="layui-btn layui-btn-sm" href="{{ route('admin.permission.create') }}">添 加</a>
         @endcan
+        <button class="layui-btn layui-btn-sm" id="returnParent" pid="0">返回上级</button>
     </div>
     <table id="dataTable" lay-filter="dataTable"></table>
     <script type="text/html" id="icon">
@@ -69,6 +70,10 @@
             } else if(layEvent === 'edit'){
                 location.href = '/admin/permission/'+data.id+'/edit';
             } else if (layEvent === 'children'){
+                var pid = $("#returnParent").attr("pid");
+                if (data.parent_id!=0){
+                    $("#returnParent").attr("pid",pid+'_'+data.parent_id);
+                }
                 dataTable.reload({
                     where:{model:"permission",parent_id:data.id},
                     page:{curr:1}
@@ -100,6 +105,21 @@
             }else {
                 layer.msg('请选择删除项',{icon:5})
             }*/
+        });
+        //返回上一级
+        $("#returnParent").click(function () {
+            var pid = $(this).attr("pid");
+            if (pid!='0'){
+                ids = pid.split('_');
+                parent_id = ids.pop();
+                $(this).attr("pid",ids.join('_'));
+            }else {
+                parent_id=pid;
+            }
+            dataTable.reload({
+                where:{model:"permission",parent_id:parent_id},
+                page:{curr:1}
+            })
         })
     </script>
     @endcan

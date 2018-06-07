@@ -163,6 +163,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::delete('advert/destroy', 'AdvertController@destroy')->name('admin.advert.destroy')->middleware('permission:config.advert.destroy');
     });
 });
+//会员管理
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'permission:member.manage']], function () {
     //账号管理
     Route::group(['middleware' => 'permission:member.member'], function () {
@@ -176,5 +177,19 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::put('member/{id}/update', 'MemberController@update')->name('admin.member.update')->middleware('permission:member.member.edit');
         //删除
         Route::delete('member/destroy', 'MemberController@destroy')->name('admin.member.destroy')->middleware('permission:member.member.destroy');
+    });
+});
+//消息管理
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'permission:message.manage']], function () {
+    //消息管理
+    Route::group(['middleware' => 'permission:message.message'], function () {
+        Route::get('message/data', 'MessageController@data')->name('admin.message.data');
+        Route::get('message/getUser', 'MessageController@getUser')->name('admin.message.getUser');
+        Route::get('message', 'MessageController@index')->name('admin.message');
+        //添加
+        Route::get('message/create', 'MessageController@create')->name('admin.message.create')->middleware('permission:message.message.create');
+        Route::post('message/store', 'MessageController@store')->name('admin.message.store')->middleware('permission:message.message.create');
+        //删除
+        Route::delete('message/destroy', 'MessageController@destroy')->name('admin.message.destroy')->middleware('permission:message.message.destroy');
     });
 });
