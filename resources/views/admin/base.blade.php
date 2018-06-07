@@ -43,7 +43,7 @@
                 @foreach($menus as $menu)
                     @can($menu->name)
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon {{$menu->icon->class}}"></i> {{$menu->display_name}}</a>
+                        <a href="javascript:;"><i class="layui-icon {{$menu->icon->class??''}}"></i> {{$menu->display_name}}</a>
                         @if(!$menu->childs->isEmpty())
                         <dl class="layui-nav-child">
                             @foreach($menu->childs as $subMenu)

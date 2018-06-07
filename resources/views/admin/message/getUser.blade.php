@@ -10,7 +10,7 @@
                 </select>
             </div>
             <div class="layui-input-inline">
-                <input type="text" name="keyword" placeholder="请输入用户名或手机号码" class="layui-input">
+                <input type="text" name="keywords" placeholder="请输入用户名或手机号码" class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <button type="button" class="layui-btn">搜索</button>
