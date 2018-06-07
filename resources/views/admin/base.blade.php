@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/main.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/static/js/jquery.min.js"  type="text/javascript"></script>
     <script src="/static/layui/layui.all.js"  type="text/javascript"></script>
@@ -40,20 +41,20 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="nav">
                 @foreach($menus as $menu)
-                @can('system.manage')
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon {{$menu->icon->class}}"></i> {{$menu->name}}</a>
-                    @if(!$menu->subMenus->isEmpty())
-                    <dl class="layui-nav-child">
-                        @foreach($menu->subMenus as $subMenu)
-                        @can($subMenu->permission)
-                        <dd><a href="{{ route($subMenu->route) }}"><i class="layui-icon {{$subMenu->icon->class}}"></i> {{$subMenu->name}}</a></dd>
-                        @endcan
-                        @endforeach
-                    </dl>
-                    @endif
-                </li>
-                @endcan
+                    @can($menu->name)
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="layui-icon {{$menu->icon->class}}"></i> {{$menu->display_name}}</a>
+                        @if(!$menu->childs->isEmpty())
+                        <dl class="layui-nav-child">
+                            @foreach($menu->childs as $subMenu)
+                                @can($subMenu->name)
+                                <dd><a href="{{ route($subMenu->route) }}"><i class="layui-icon {{$subMenu->icon->class}}"></i> {{$subMenu->display_name}}</a></dd>
+                                @endcan
+                            @endforeach
+                        </dl>
+                        @endif
+                    </li>
+                    @endcan
                 @endforeach
             </ul>
         </div>
@@ -95,6 +96,7 @@
     var layer = layui.layer;
     var form = layui.form;
     var table = layui.table;
+    var upload = layui.upload;
 
     form.render();
     element.render();

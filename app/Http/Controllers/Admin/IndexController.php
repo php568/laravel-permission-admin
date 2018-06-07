@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Icon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Yansongda\LaravelPay\Facades\Pay;
-use QrCode;
+use App\Models\Permission;
+use App\Models\Role;
+
 
 class IndexController extends Controller
 {
@@ -34,7 +34,7 @@ class IndexController extends Controller
                 break;
             case 'permission':
                 $query = new Permission();
-                $query = $query->where('parent_id',$request->get('parent_id',0));
+                $query = $query->where('parent_id',$request->get('parent_id',0))->with('icon');
                 break;
             default:
                 $query = new User();break;
@@ -49,24 +49,14 @@ class IndexController extends Controller
         return response()->json($data);
     }
 
-    public function testPay()
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * 所有icon图标
+     */
+    public function icons()
     {
-        $order = [
-            'out_trade_no' => time(),
-            'body' => 'subject-测试',
-            'total_fee'      => '1',
-            //'openid' => 'onkVf1FjWS5SBIixxxxxxxxx',
-        ];
-
-        $result = Pay::wechat()->scan($order);
-        $qr = $result->code_url;
-        return QrCode::size(200)->generate($qr);
-
-    }
-
-    public function notify()
-    {
-        return 123;
+        $icons = Icon::orderBy('sort','desc')->get();
+        return response()->json(['code'=>0,'msg'=>'请求成功','data'=>$icons]);
     }
 
 }

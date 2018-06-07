@@ -11,6 +11,9 @@
         @endcan
     </div>
     <table id="dataTable" lay-filter="dataTable"></table>
+    <script type="text/html" id="icon">
+        <i class="layui-icon @{{ d.icon.class }}"></i>
+    </script>
     <script type="text/html" id="options">
         <div class="layui-btn-group">
             @can('system.permission')
@@ -39,8 +42,10 @@
             ,cols: [[ //表头
                 {checkbox: true,fixed: true}
                 ,{field: 'id', title: 'ID', sort: true}
-                ,{field: 'name', title: '名称'}
+                ,{field: 'name', title: '权限名称'}
                 ,{field: 'display_name', title: '显示名称'}
+                ,{field: 'route', title: '路由'}
+                ,{field: 'icon_id', title: '图标', toolbar:'#icon'}
                 ,{field: 'created_at', title: '创建时间'}
                 ,{field: 'updated_at', title: '更新时间'}
                 ,{fixed: 'right', width: 260, align:'center', toolbar: '#options'}
@@ -65,14 +70,15 @@
                 location.href = '/admin/permission/'+data.id+'/edit';
             } else if (layEvent === 'children'){
                 dataTable.reload({
-                    where:{model:"permission",parent_id:data.id}
+                    where:{model:"permission",parent_id:data.id},
+                    page:{curr:1}
                 })
             }
         });
 
         //按钮批量删除
         $("#listDelete").click(function () {
-            layer.msg("由于权限重要性，系统已禁止批量删除",{icon:5});
+            layer.msg("由于权限重要性，系统已禁止批量删除");
             /*var ids = []
             var hasCheck = table.checkStatus('dataTable')
             var hasCheckData = hasCheck.data

@@ -15,7 +15,6 @@
                 <input type="password" name="password" lay-verify="required" placeholder="密码" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
             <label for="" class="layui-form-label">验证码</label>
             <div class="layui-input-block">

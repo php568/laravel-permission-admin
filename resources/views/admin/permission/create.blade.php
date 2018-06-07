@@ -6,3 +6,7 @@
         @include('admin.permission._from')
     </form>
 @endsection
+
+@section('script')
+    @include('admin.permission._js')
+@endsection

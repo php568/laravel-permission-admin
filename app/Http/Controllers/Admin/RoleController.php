@@ -6,7 +6,7 @@ use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
@@ -64,10 +64,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        if (!$role){
-            return redirect()->to(route('admin.role'))->withErrors('角色不存在');
-        }
+        $role = Role::findOrFail($id);
         return view('admin.role.edit',compact('role'));
     }
 
@@ -80,10 +77,7 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, $id)
     {
-        $role = Role::find($id);
-        if (!$role){
-            return redirect()->to(route('admin.role'))->withErrors('角色不存在');
-        }
+        $role = Role::findOrFail($id);
         $data = $request->only(['name','display_name']);
         if ($role->update($data)){
             return redirect()->to(route('admin.role'))->with(['status'=>'更新角色成功']);
@@ -114,10 +108,7 @@ class RoleController extends Controller
      */
     public function permission(Request $request,$id)
     {
-        $role = Role::find($id);
-        if (!$role){
-            return redirect()->to(route('admin.role'))->withErrors('角色不存在');
-        }
+        $role = Role::findOrFail($id);
         $permissions = $this->tree();
         foreach ($permissions as $key1 => $item1){
             $permissions[$key1]['own'] = $role->hasPermissionTo($item1['id']) ? 'checked' : false ;
@@ -141,10 +132,7 @@ class RoleController extends Controller
      */
     public function assignPermission(Request $request,$id)
     {
-        $role = Role::find($id);
-        if (!$role){
-            return redirect()->to(route('admin.role'))->withErrors('角色不存在');
-        }
+        $role = Role::findOrFail($id);
         $permissions = $request->get('permissions');
 
         if (empty($permissions)){

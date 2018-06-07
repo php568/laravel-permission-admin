@@ -7,7 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -65,10 +65,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        if (!$user){
-            return redirect()->to(route('admin.user'))->withErrors('用户不存在');
-        }
+        $user = User::findOrFail($id);
         return view('admin.user.edit',compact('user'));
     }
 
@@ -81,10 +78,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
-        $user = User::find($id);
-        if (!$user){
-            return redirect()->to(route('admin.user'))->withErrors('用户不存在');
-        }
+        $user = User::findOrFail($id);
         $data = $request->only(['name','email','phone']);
         if ($request->get('password')){
             $data['password'] = $request->get('password');
@@ -118,10 +112,7 @@ class UserController extends Controller
      */
     public function role(Request $request,$id)
     {
-        $user = User::find($id);
-        if (!$user){
-            return redirect()->to(route('admin.user'))->withErrors('用户不存在');
-        }
+        $user = User::findOrFail($id);
         $roles = Role::get();
         $hasRoles = $user->roles();
         foreach ($roles as $role){
@@ -135,10 +126,7 @@ class UserController extends Controller
      */
     public function assignRole(Request $request,$id)
     {
-        $user = User::find($id);
-        if (!$user){
-            return redirect()->to(route('admin.user'))->withErrors('用户不存在');
-        }
+        $user = User::findOrFail($id);
         $roles = $request->get('roles',[]);
        if ($user->syncRoles($roles)){
            return redirect()->to(route('admin.user'))->with(['status'=>'更新用户角色成功']);
@@ -151,10 +139,7 @@ class UserController extends Controller
      */
     public function permission(Request $request,$id)
     {
-        $user = User::find($id);
-        if (!$user){
-            return redirect()->to(route('admin.user'))->withErrors('用户不存在');
-        }
+        $user = User::findOrFail($id);
         $permissions = $this->tree();
         foreach ($permissions as $key1 => $item1){
             $permissions[$key1]['own'] = $user->hasDirectPermission($item1['id']) ? 'checked' : false ;
@@ -177,10 +162,7 @@ class UserController extends Controller
      */
     public function assignPermission(Request $request,$id)
     {
-        $user = User::find($id);
-        if (!$user){
-            return redirect()->to(route('admin.user'))->withErrors('用户不存在');
-        }
+        $user = User::findOrFail($id);
         $permissions = $request->get('permissions');
 
         if (empty($permissions)){

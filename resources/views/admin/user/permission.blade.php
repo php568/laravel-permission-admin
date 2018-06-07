@@ -9,7 +9,7 @@
         .cate-box dd .cate-second{margin-bottom: 10px}
         .cate-box dd .cate-third{padding:0 40px;margin-bottom: 10px}
     </style>
-    <div class="layui-elem-quote">用户 【{{$user->name}}】分配直接权限，直接权限与角色拥有的权限不冲突</div>
+    <div class="layui-elem-quote">用户 【{{$user->name}}】分配直接权限，直接权限与角色拥有的角色权限不冲突</div>
     <form action="{{route('admin.user.assignPermission',['user'=>$user])}}" method="post" class="layui-form">
         {{csrf_field()}}
         {{method_field('put')}}

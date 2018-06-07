@@ -6,7 +6,7 @@ use App\Http\Requests\PermissionCreateRequest;
 use App\Http\Requests\PermissionUpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -17,6 +17,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
+
         return view('admin.permission.index');
     }
 
@@ -40,9 +41,9 @@ class PermissionController extends Controller
      */
     public function store(PermissionCreateRequest $request)
     {
-        $data = $request->only(['name','display_name','parent_id']);
+        $data = $request->all();
         if (Permission::create($data)){
-            return redirect()->to(route('admin.permission'))->with(['status'=>'添加权限成功']);
+            return redirect()->to(route('admin.permission'))->with(['status'=>'添加成功']);
         }
         return redirect()->to(route('admin.permission'))->withErrors('系统错误');
     }
@@ -66,10 +67,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::find($id);
-        if (!$permission){
-            return redirect()->to(route('admin.permission'))->withErrors('权限不存在');
-        }
+        $permission = Permission::findOrFail($id);
         $permissions = $this->tree();
         return view('admin.permission.edit',compact('permission','permissions'));
     }
@@ -83,11 +81,8 @@ class PermissionController extends Controller
      */
     public function update(PermissionUpdateRequest $request, $id)
     {
-        $permission = Permission::find($id);
-        if (!$permission){
-            return redirect()->to(route('admin.permission'))->withErrors('权限不存在');
-        }
-        $data = $request->only(['name','display_name','parent_id']);
+        $permission = Permission::findOrFail($id);
+        $data = $request->all();
         if ($permission->update($data)){
             return redirect()->to(route('admin.permission'))->with(['status'=>'更新权限成功']);
         }
