@@ -29,6 +29,8 @@
     </script>
 @endsection
 
+
+
 @section('script')
         <script type="text/javascript">
             //用户表格初始化
