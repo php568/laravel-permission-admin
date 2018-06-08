@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/static/js/jquery.min.js"  type="text/javascript"></script>
     <script src="/static/layui/layui.all.js"  type="text/javascript"></script>
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -17,12 +18,7 @@
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="{{ route('admin.index') }}"><i class="layui-icon">&#xe68e;</i> 后台首页</a></li>
             <li class="layui-nav-item">
-                <a href="javascript:;">其它设置</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
+                <a href="javascript:;">我的消息<span class="layui-badge layui-bg-red" id="message_count"></span></a>
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
@@ -127,6 +123,19 @@
             })
         });
     }
+
+
+
+    $.ajax({
+        url: "{{route('admin.message.get_count')}}",
+        dataType: 'json',
+        type: 'get',
+        success: function (res) {
+            if (res.code == 0) {
+                $('#message_count').text(res.data.count);
+            }
+        }
+    });
 </script>
 @yield('script')
 </body>

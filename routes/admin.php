@@ -191,5 +191,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('message/store', 'MessageController@store')->name('admin.message.store')->middleware('permission:message.message.create');
         //删除
         Route::delete('message/destroy', 'MessageController@destroy')->name('admin.message.destroy')->middleware('permission:message.message.destroy');
+
+        Route::get('message/count', 'MessageController@getMessageCount')->name('admin.message.get_count');
+    });
+
+    //我的消息
+    Route::group(['middleware' => 'permission:message.mine'], function () {
+        Route::get('message/mine','MessageController@mine')->name('admin.message.mine');
+        Route::get('message/mine/data','MessageController@mineData')->name('admin.message.mine.data');
     });
 });
