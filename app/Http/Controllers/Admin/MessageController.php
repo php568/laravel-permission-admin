@@ -26,12 +26,12 @@ class MessageController extends Controller
      */
     public function data(Request $request)
     {
-        $res = Message::orderBy('id', 'desc')->paginate($request->get('limit', 30))->toArray();
+        $res = Message::orderBy('id','desc')->paginate($request->get('limit',30))->toArray();
         $data = [
             'code' => 0,
-            'msg' => '正在请求中...',
+            'msg'   => '正在请求中...',
             'count' => $res['total'],
-            'data' => $res['data']
+            'data'  => $res['data']
         ];
         return response()->json($data);
     }
@@ -42,20 +42,22 @@ class MessageController extends Controller
      */
     public function getUser(Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->ajax()){
             //默认后台用户
             $model = new User();
-            if ($request->get('user_type') == 3) {
+            if ($request->get('user_type')==3){
                 $model = new Member();
             }
             $keywords = $request->get('keywords');
-
-            $res = $model->orderBy('id', 'desc')->paginate($request->get('limit', 30))->toArray();
+            if ($keywords){
+                $model = $model->where('name','like','%'.$keywords.'%')->orWhere('phone','like','%'.$keywords.'%');
+            }
+            $res = $model->orderBy('id','desc')->paginate($request->get('limit',30))->toArray();
             $data = [
                 'code' => 0,
-                'msg' => '正在请求中...',
+                'msg'   => '正在请求中...',
                 'count' => $res['total'],
-                'data' => $res['data']
+                'data'  => $res['data']
             ];
             return response()->json($data);
         }
@@ -75,7 +77,7 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -86,7 +88,7 @@ class MessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -97,7 +99,7 @@ class MessageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -108,8 +110,8 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -120,64 +122,11 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-    }
-
-
-    /**
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function mine()
-    {
-        $model = new Message();
-        $read_status = $model->read_status;
-
-        return view('admin.message.mine',compact('read_status'));
-
-    }
-
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function mineData(Request $request){
-
-        $message = Message::where('send_uuid', auth()->user()->uuid)
-            ->orwhere('accept_uuid',auth()->user()->uuid)
-            ->paginate($request->get('limit', 30))
-            ->toArray();
-
-        $data = [
-            'code' => 0,
-            'msg' => '正在请求中...',
-            'count' => $message['total'],
-            'data' => $message['data']
-        ];
-
-        return response()->json($data);
-
-    }
-
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getMessageCount()
-    {
-
-        $count = Message::where('accept_uuid', \request()->user()->uuid)->count();
-        $data = [
-            'code' => 0,
-            'msg' => '请求成功',
-            'data' => ['count' => $count]
-        ];
-
-        return response()->json($data);
     }
 }
