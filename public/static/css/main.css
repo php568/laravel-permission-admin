@@ -116,3 +116,39 @@
 .custom-table{
     margin:0 20px 20px 20px;
 }
+
+.userBox{
+
+}
+.userBox li{
+    display: inline-block;
+    float: left;
+    padding:10px 22px;
+    color: #fff;
+    border-radius: 4px;
+    margin:0 10px 10px 0;
+    position: relative;
+}
+.userBox li.li2{
+    background-color: #009688;
+}
+.userBox li.li3{
+    background-color: #393D49;
+}
+.userBox li i{
+    display: block;
+    width: 10px;
+    height:10px;
+    line-height: 10px;
+    color: #fff;
+    text-align: center;
+    border:1px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    top:2px;
+    right: 2px;
+    cursor: pointer;
+}
+
+
+

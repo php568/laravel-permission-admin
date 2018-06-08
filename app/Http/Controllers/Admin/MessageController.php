@@ -49,7 +49,9 @@ class MessageController extends Controller
                 $model = new Member();
             }
             $keywords = $request->get('keywords');
-
+            if ($keywords){
+                $model = $model->where('name','like','%'.$keywords.'%')->orWhere('phone','like','%'.$keywords.'%');
+            }
             $res = $model->orderBy('id','desc')->paginate($request->get('limit',30))->toArray();
             $data = [
                 'code' => 0,
@@ -80,7 +82,39 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'title' => 'required|min:4|max:200',
+            'content' => 'required|min:4|max:400'
+        ]);
+        if (empty($request->get('user'))){
+            return back()->withInput()->with(['status'=>'请选择用户']);
+        }
+        $data = $request->only(['title','content','user']);
+        //后台推送给后台用户
+        if (isset($data['user'][2]) && !empty($data['user'][2])){
+            foreach ($data['user'][2] as $uuid){
+                Message::create([
+                    'title' => $data['title'],
+                    'content' => $data['content'],
+                    'send_uuid' => auth()->user()->uuid,
+                    'accept_uuid' => $uuid,
+                    'flag' => 22
+                ]);
+            }
+        }
+        //后台推送给前台用户
+        if (isset($data['user'][3]) && !empty($data['user'][3])){
+            foreach ($data['user'][3] as $uuid){
+                Message::create([
+                    'title' => $data['title'],
+                    'content' => $data['content'],
+                    'send_uuid' => auth()->user()->uuid,
+                    'accept_uuid' => $uuid,
+                    'flag' => 23
+                ]);
+            }
+        }
+        return back()->with(['status'=>'消息推送完成']);
     }
 
     /**

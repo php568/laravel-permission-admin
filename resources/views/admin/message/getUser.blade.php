@@ -4,7 +4,7 @@
     <div style="padding:0 10px;">
         <div class="layui-form" style="padding-top:15px">
             <div class="layui-input-inline">
-                <select name="user_type" lay-verify="required">
+                <select name="user_type" lay-verify="required" lay-filter="type">
                     <option value="2">后台用户</option>
                     <option value="3">前台用户</option>
                 </select>
@@ -13,8 +13,8 @@
                 <input type="text" name="keywords" placeholder="请输入用户名或手机号码" class="layui-input">
             </div>
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn">搜索</button>
-                <button type="button" class="layui-btn">确定</button>
+                <button type="button" class="layui-btn" id="search">搜索</button>
+                <button type="button" class="layui-btn" id="chioceUser">确定</button>
             </div>
         </div>
         <table id="dataTable" lay-filter="dataTable"></table>
@@ -36,5 +36,39 @@
                 ,{field: 'phone', title: '电话'}
             ]]
         });
+        //搜索
+        $("#search").click(function () {
+            var keywords = $("input[name='keywords']").val();
+            var user_type = $("select[name='user_type']").val();
+            dataTable.reload({
+                page:{curr:1},
+                where:{keywords:keywords,user_type:user_type}
+            })
+        })
+
+        //监听select选择
+        form.on('select(type)', function(data){
+            dataTable.reload({
+                page:{curr:1},
+                where:{user_type:data.value}
+            });
+        });
+
+        //选择用户
+        $("#chioceUser").click(function () {
+            var hasCheck = table.checkStatus('dataTable')
+            if (hasCheck.data.length>0){
+                var type = $("select[name='user_type']").val();
+                var obj = parent.$(".userBox"+type);
+                $.each(hasCheck.data,function (index,item) {
+                    if (obj.find("#"+item.uuid).length<=0){
+                        var html ='<li id="'+item.uuid+'" class="li'+type+'">'+item.name+'<i title="移除" onclick="removeLi(this)">&times;</i><input type="hidden" name="user['+type+'][]" value="'+item.uuid+'"></li>'
+                        obj.append(html)
+                    }
+                })
+                layer.msg('添加完成')
+            }
+        })
+
     </script>
 @endsection
