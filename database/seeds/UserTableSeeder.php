@@ -188,6 +188,12 @@ class UserTableSeeder extends Seeder
                 'icon_id' => '24',
                 'child' => [
                     [
+                        'name' => 'message.message.mine',
+                        'display_name' => '我的消息',
+                        'route' => 'admin.message.mine',
+                        'icon_id' => '124',
+                    ],
+                    [
                         'name' => 'message.message',
                         'display_name' => '消息管理',
                         'route' => 'admin.message',

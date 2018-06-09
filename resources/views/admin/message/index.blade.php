@@ -9,6 +9,19 @@
         @can('message.message.create')
             <a class="layui-btn layui-btn-sm" href="{{ route('admin.message.create') }}">添加</a>
         @endcan
+            <button type="button" class="layui-btn layui-btn-sm" id="searchBtn">搜索</button>
+    </div>
+    <div class="layui-form" style="padding-top:15px">
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" placeholder="开始时间" name="start_time" id="start_time">
+        </div>
+        <div class="layui-form-mid layui-word-aux" style="float:none;display: inline;margin-right: 0">-</div>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" placeholder="结束时间" name="end_time" id="end_time">
+        </div>
+        <div class="layui-input-inline">
+            <input type="text" name="title" id="title" placeholder="请输入消息标题" class="layui-input" >
+        </div>
     </div>
     <table id="dataTable" lay-filter="dataTable"></table>
     <script type="text/html" id="options">
@@ -17,6 +30,9 @@
         <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
         @endcan
         </div>
+    </script>
+    <script type="text/html" id="read">
+        <input disabled type="checkbox" lay-skin="switch" lay-text="未读|已读" @{{ d.read==1?'checked':'' }} >
     </script>
 @endsection
 
@@ -31,14 +47,14 @@
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
-                    ,{field: 'id', title: 'ID', sort: true}
+                    ,{field: 'id', title: 'ID', sort: true,width:80}
                     ,{field: 'title', title: '标题'}
                     ,{field: 'content', title: '内容'}
-                    ,{field: 'send_uuid', title: '发送人'}
-                    ,{field: 'accept_uuid', title: '接收人'}
-                    ,{field: 'read', title: '是否已读'}
+                    ,{field: 'send_name', title: '发送人'}
+                    ,{field: 'accept_name', title: '接收人'}
+                    ,{field: 'read', title: '是否已读',width:100,toolbar: '#read'}
                     ,{field: 'created_at', title: '创建时间'}
-                    ,{fixed: 'right', width: 220, align:'center', toolbar: '#options'}
+                    ,{fixed: 'right', width: 220, align:'center', toolbar: '#options',width:100}
                 ]]
             });
 
@@ -84,7 +100,25 @@
                 }else {
                     layer.msg('请选择删除项')
                 }
+            });
+            
+            //搜索
+            laydate.render({
+                elem: "#start_time",
+            });
+            laydate.render({
+                elem: "#end_time",
+            });
+            $("#searchBtn").click(function () {
+                var start_time = $("#start_time").val()
+                var end_time = $("#end_time").val();
+                var title = $("#title").val();
+                dataTable.reload({
+                    where:{start_time:start_time,end_time:end_time,title},
+                    page:{curr:1}
+                })
             })
+            
         </script>
     @endcan
 @endsection
