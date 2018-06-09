@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
+use App\Notifications\ResetPasswordNotification;
 
-class Member extends Model
+class Member extends Authenticatable
 {
     protected $table = 'members';
     protected $fillable = ['phone','name','password','avatar','remember_token','uuid'];

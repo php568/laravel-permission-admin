@@ -15,14 +15,16 @@ return [
     'characters' => '2346789abcdefghjmnpqrtuxyzABCDEFGHJMNPQRTUXYZ',
 
     'default'   => [
-        'length'    => 5,
+        'length'    => 4,
         'width'     => 120,
         'height'    => 36,
         'quality'   => 90,
+        'bgImage'   => false,
+        'fontColors'=> ['#2c3e50', '#c0392b', '#16a085', '#c0392b', '#8e44ad', '#303f9f', '#f57c00', '#795548'],
     ],
 
     'flat'   => [
-        'length'    => 6,
+        'length'    => 4,
         'width'     => 160,
         'height'    => 46,
         'quality'   => 90,

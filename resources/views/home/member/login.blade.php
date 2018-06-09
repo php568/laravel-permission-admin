@@ -1,14 +1,8 @@
 @extends('home.base')
 
 @section('content')
-    <form class="layui-form" action="{{route('home.member.register')}}" method="post">
+    <form class="layui-form" action="{{route('home.member.login')}}" method="post">
         {{csrf_field()}}
-        <div class="layui-form-item">
-            <label for="" class="layui-form-label">昵称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" value="{{ $member->name ?? old('name') }}" lay-verify="required" placeholder="请输入昵称" class="layui-input" >
-            </div>
-        </div>
 
         <div class="layui-form-item">
             <label for="" class="layui-form-label">手机号</label>
@@ -25,13 +19,6 @@
         </div>
 
         <div class="layui-form-item">
-            <label for="" class="layui-form-label">确认密码</label>
-            <div class="layui-input-inline">
-                <input type="password" name="password_confirmation" placeholder="请输入密码" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
             <label for="" class="layui-form-label">验证码</label>
             <div class="layui-input-inline">
                 <input type="text" name="captcha"  lay-verify="required" class="layui-input">
@@ -43,7 +30,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">注册</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">登录</button>
             </div>
         </div>
     </form>
