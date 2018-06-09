@@ -198,9 +198,4 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('message/count', 'MessageController@getMessageCount')->name('admin.message.get_count');
     });
 
-    //我的消息
-    Route::group(['middleware' => 'permission:message.mine'], function () {
-        Route::get('message/mine','MessageController@mine')->name('admin.message.mine');
-        Route::get('message/mine/data','MessageController@mineData')->name('admin.message.mine.data');
-    });
 });
