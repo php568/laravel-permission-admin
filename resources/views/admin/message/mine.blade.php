@@ -83,7 +83,8 @@
                 }else {
                     layer.msg('请选择删除项')
                 }
-            })
+            });
+
             //已读未读
             form.on('switch(read)', function(data){
                 var othis = $(data.othis);
@@ -98,11 +99,8 @@
                             form.render('checkbox','read');
                             if ($("#unreadMessage").length>0){
                                 var currentNum = parseInt($("#unreadMessage").text())
-                                if (currentNum-1==0){
-                                    $("#unreadMessage").hide();
-                                    return true;
-                                }
-                                $("#unreadMessage").text(currentNum-1)
+                                var updateNum = currentNum-1 >=0 ? currentNum : 0;
+                                $("#unreadMessage").text(updateNum)
                             }
 
                         }
