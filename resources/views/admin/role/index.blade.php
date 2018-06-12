@@ -38,7 +38,7 @@
             ,page: true //开启分页
             ,cols: [[ //表头
                 {checkbox: true,fixed: true}
-                ,{field: 'id', title: 'ID', sort: true}
+                ,{field: 'id', title: 'ID', sort: true,width:80}
                 ,{field: 'name', title: '名称'}
                 ,{field: 'display_name', title: '显示名称'}
                 ,{field: 'created_at', title: '创建时间'}

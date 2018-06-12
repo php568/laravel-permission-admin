@@ -69,7 +69,7 @@
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
-                    ,{field: 'id', title: 'ID', sort: true,width:60}
+                    ,{field: 'id', title: 'ID', sort: true,width:80}
                     ,{field: 'category', title: '分类',toolbar:'#category'}
                     ,{field: 'title', title: '标题'}
                     ,{field: 'thumb', title: '缩略图',toolbar:'#thumb',width:100}

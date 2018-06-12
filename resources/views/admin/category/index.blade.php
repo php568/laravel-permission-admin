@@ -34,7 +34,7 @@
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
-                    ,{field: 'id', title: 'ID', sort: true}
+                    ,{field: 'id', title: 'ID', sort: true,width:80}
                     ,{field: 'name', title: '分类名称'}
                     ,{field: 'sort', title: '排序'}
                     ,{field: 'created_at', title: '创建时间'}

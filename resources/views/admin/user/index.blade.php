@@ -43,7 +43,7 @@
             ,page: true //开启分页
             ,cols: [[ //表头
                 {checkbox: true,fixed: true}
-                ,{field: 'id', title: 'ID', sort: true}
+                ,{field: 'id', title: 'ID', sort: true,width:80}
                 ,{field: 'name', title: '用户名'}
                 ,{field: 'email', title: '邮箱'}
                 ,{field: 'phone', title: '电话'}

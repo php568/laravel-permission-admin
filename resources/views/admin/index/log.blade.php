@@ -24,7 +24,7 @@
             , page: true //开启分页
             , cols: [[ //表头
                 {checkbox: true, fixed: true}
-                , {field: 'id', title: 'ID', sort: true}
+                , {field: 'id', title: 'ID', sort: true,width:80}
                 , {field: 'user_name', title: '操作人'}
                 , {field: 'route', title: '访问地址'}
                 , {field: 'name', title: '模块名称'}

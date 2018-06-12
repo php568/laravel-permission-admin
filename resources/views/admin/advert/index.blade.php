@@ -54,7 +54,7 @@
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
-                    ,{field: 'id', title: 'ID', sort: true}
+                    ,{field: 'id', title: 'ID', sort: true,width:80}
                     ,{field: 'position', title: '广告位置',toolbar:'#position'}
                     ,{field: 'title', title: '广告位标题'}
                     ,{field: 'thumb', title: '图片',toolbar:'#thumb'}

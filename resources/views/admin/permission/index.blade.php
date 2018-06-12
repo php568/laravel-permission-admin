@@ -42,7 +42,7 @@
             ,page: true //开启分页
             ,cols: [[ //表头
                 {checkbox: true,fixed: true}
-                ,{field: 'id', title: 'ID', sort: true}
+                ,{field: 'id', title: 'ID', sort: true,width:80}
                 ,{field: 'name', title: '权限名称'}
                 ,{field: 'display_name', title: '显示名称'}
                 ,{field: 'route', title: '路由'}

@@ -66,7 +66,7 @@ class IndexController extends Controller
      */
     public function logs()
     {
-        return view('admin.log.index');
+        return view('admin.index.log');
     }
 
 
