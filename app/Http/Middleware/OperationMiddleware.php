@@ -20,7 +20,7 @@ class OperationMiddleware
     {
         $response = $next($request);
 
-        if (env('OPERATION_LOG')) {
+        if (env('OPERATION_LOG',false)) {
             $this->createOperationLogs($request);
         }
 

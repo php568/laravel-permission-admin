@@ -30,7 +30,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
     //数据表格接口
     Route::get('data','IndexController@data')->name('admin.data')->middleware('permission:system.role|system.user|system.permission');
     //用户管理
-    Route::group(['middleware'=>['permission:system.user','operation']],function (){
+    Route::group(['middleware'=>['permission:system.user']],function (){
         Route::get('user','UserController@index')->name('admin.user');
         //添加
         Route::get('user/create','UserController@create')->name('admin.user.create')->middleware('permission:system.user.create');

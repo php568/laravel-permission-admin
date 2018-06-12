@@ -30,11 +30,11 @@ class LoginController extends Controller
     public function validateLogin(Request $request)
     {
         $this->validate($request, [
-            'geetest_challenge' => 'geetest',
+            'captcha' => 'required|captcha',
             $this->username() => 'required|string',
             'password' => 'required|string',
         ],[
-            'geetest' => config('geetest.server_fail_alert')
+            'captcha.captcha' => '图形验证码错误'
         ]);
     }
 

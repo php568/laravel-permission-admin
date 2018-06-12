@@ -26,7 +26,7 @@
         <div class="layui-form-item">
             <label for="" class="layui-form-label">CopyRight</label>
             <div class="layui-input-block">
-                <input type="text" name="copyright" value="{{ $config['copyright']??'' }}" lay-verify="required" placeholder="请输入关键词" class="layui-input" >
+                <input type="text" name="copyright" value="{{ $config['copyright']??'' }}" lay-verify="required" placeholder="请输入copyright" class="layui-input" >
             </div>
         </div>
         <div class="layui-form-item">

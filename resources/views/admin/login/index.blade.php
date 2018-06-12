@@ -17,8 +17,11 @@
         </div>
         <div class="layui-form-item">
             <label for="" class="layui-form-label">验证码</label>
-            <div class="layui-input-block">
-                {!! Geetest::render('popup') !!}
+            <div class="layui-input-inline" style="width:150px;">
+                <input type="text" name="captcha" maxlength="4" lay-verify="required" placeholder="验证码" class="layui-input">
+            </div>
+            <div style="float: right;padding:0;">
+                <img src="{{ captcha_src() }}" onclick="changeCaptcha(this);" title="点击切换" height="39">
             </div>
         </div>
         <div class="layui-form-item">
@@ -29,4 +32,11 @@
             </div>
         </div>
     </form>
+@endsection
+@section('script')
+    <script>
+        function changeCaptcha(obj) {
+            $(obj).attr("src","{{ captcha_src() }}?t="+Math.random())
+        }
+    </script>
 @endsection

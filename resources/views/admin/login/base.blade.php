@@ -66,4 +66,5 @@
     @endif
 
 </script>
+@yield('script')
 </html>
