@@ -3,6 +3,7 @@
 @section('content')
     <div class="layui-elem-quote">后台主页内容</div>
     <div class="layui-row layui-col-space30">
+        <!--
         <div class="layui-col-lg3">
             <div class="pannel layui-bg-blue">
                 <p>今日订单数</p>
@@ -27,5 +28,6 @@
                 <p id="member_count">0</p>
             </div>
         </div>
+        -->
     </div>
 @endsection

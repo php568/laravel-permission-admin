@@ -24,14 +24,14 @@
 <body>
 <div class="admin_login">
     <div class="ext_info">
-        <strong>Laravel5.5后台管理</strong>
-        <em>初心易得，始终难守</em>
+        <strong>后台管理</strong>
+        <em>php568</em>
     </div>
 
     @yield('content')
 
     <div class="ext_info">
-        <p>© 2015-2016 Layui 版权所有</p>
+        <p>© 2015-2016 php568</p>
         <p>备案号：8888888</p>
     </div>
 

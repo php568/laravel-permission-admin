@@ -14,7 +14,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo" style="color: #fff;font-size: 28px">laravel5.5</div>
+        <div class="layui-logo" style="color: #fff;font-size: 28px">后台管理</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="{{ route('admin.index') }}"><i class="layui-icon">&#xe68e;</i> 后台首页</a>
             </li>
