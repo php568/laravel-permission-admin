@@ -35,7 +35,7 @@ class IndexController extends Controller
                 break;
             case 'permission':
                 $query = new Permission();
-                $query = $query->where('parent_id', $request->get('parent_id', 0))->with('icon');
+                $query = $query->where('parent_id', $request->get('parent_id', 0))->with('icon')->where('display','1');
                 break;
             default:
                 $query = new User();
