@@ -18,9 +18,10 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         //左侧菜单
         view()->composer('admin.base',function($view){
-            $menus = \App\Models\Permission::with(['childs'=>function($query){
+            $menus = \App\Models\Permission::with([
+                'childs'=>function($query){
                     $query->with('icon')->where('display','1');
-                } ,'icon'])
+                },'icon'])
                 ->where('parent_id',0)
                 ->where('display','1')
                 ->orderBy('sort','desc')
