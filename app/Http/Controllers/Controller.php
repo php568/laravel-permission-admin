@@ -19,6 +19,7 @@ class Controller extends BaseController
     {
         if (empty($list)){
             $list = Permission::get()->toArray();
+            return $tree = array();
         }
         // 创建Tree
         $tree = array();

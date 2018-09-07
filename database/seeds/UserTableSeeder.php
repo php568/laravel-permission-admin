@@ -80,6 +80,17 @@ class UserTableSeeder extends Seeder
                             ['name' => 'system.permission.destroy', 'display_name' => '删除权限','route'=>'admin.permission.destroy'],
                         ]
                     ],
+                    [
+                        'name' => 'system.dept',
+                        'display_name' => '部门管理',
+                        'route' => 'admin.dept',
+                        'icon_id' => '29',
+                        'child' => [
+                            ['name' => 'system.dept.create', 'display_name' => '添加部门','route'=>'admin.dept.create'],
+                            ['name' => 'system.dept.edit', 'display_name' => '编辑部门','route'=>'admin.dept.edit'],
+                            ['name' => 'system.dept.destroy', 'display_name' => '删除部门','route'=>'admin.dept.destroy'],
+                        ]
+                    ],
                 ]
             ],
             [

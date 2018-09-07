@@ -41,8 +41,8 @@ class User extends Authenticatable
     }
 
     //用户所属部门
-    public function category()
+    public function dept()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo('App\Models\Dept');
     }
 }

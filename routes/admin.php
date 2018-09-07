@@ -28,7 +28,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth'],funct
 //系统管理
 Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','permission:system.manage']],function (){
     //数据表格接口
-    Route::get('data','IndexController@data')->name('admin.data')->middleware('permission:system.role|system.user|system.permission');
+    Route::get('data','IndexController@data')->name('admin.data')->middleware('permission:system.role|system.user|system.permission|system.dept');
     //用户管理
     Route::group(['middleware'=>['permission:system.user']],function (){
         Route::get('user','UserController@index')->name('admin.user');
@@ -88,19 +88,17 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
         Route::delete('menu/destroy','MenuController@destroy')->name('admin.menu.destroy')->middleware('permission:system.menu.destroy');
     });
     //部门管理
-    Route::group(['middleware'=>'permission:system.dept'],function (){
-        Route::get('dept','DeptController@index')->name('admin.dept');
-        //添加
-        Route::get('dept/create','DeptController@create')->name('admin.dept.create')->middleware('permission:system.dept.create');
-        Route::post('dept/store','DeptController@store')->name('admin.dept.store')->middleware('permission:system.dept.create');
-        //编辑
-        Route::get('dept/{id}/edit','DeptController@edit')->name('admin.dept.edit')->middleware('permission:system.dept.edit');
-        Route::put('dept/{id}/update','DeptController@update')->name('admin.dept.update')->middleware('permission:system.dept.edit');
-        //删除
-        Route::delete('dept/destroy','DeptController@destroy')->name('admin.dept.destroy')->middleware('permission:system.dept.destroy');
-        //分配权限
-        Route::get('dept/{id}/permission','DeptController@permission')->name('admin.dept.permission')->middleware('permission:system.dept.permission');
-        Route::put('dept/{id}/assignPermission','DeptController@assignPermission')->name('admin.dept.assignPermission')->middleware('permission:system.dept.permission');
+    Route::group(['middleware' => 'permission:system.dept'], function () {
+        Route::get('dept/data', 'DeptController@data')->name('admin.dept.data');
+        Route::get('dept', 'DeptController@index')->name('admin.dept');
+        //添加部门
+        Route::get('dept/create', 'DeptController@create')->name('admin.dept.create')->middleware('permission:system.dept.create');
+        Route::post('dept/store', 'DeptController@store')->name('admin.dept.store')->middleware('permission:system.dept.create');
+        //编辑部门
+        Route::get('dept/{id}/edit', 'DeptController@edit')->name('admin.dept.edit')->middleware('permission:system.dept.edit');
+        Route::put('dept/{id}/update', 'DeptController@update')->name('admin.dept.update')->middleware('permission:system.dept.edit');
+        //删除部门
+        Route::delete('dept/destroy', 'DeptController@destroy')->name('admin.dept.destroy')->middleware('permission:system.dept.destroy');
     });
 });
 

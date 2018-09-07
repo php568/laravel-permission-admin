@@ -37,8 +37,8 @@ class DeptController extends Controller
      */
     public function create()
     {
-        $categorys = $this->tree(Dept::get()->toArray());
-        return view('admin.dept.create',compact('categorys'));
+        $depts = $this->tree(Dept::get()->toArray());
+        return view('admin.dept.create',compact('depts'));
     }
 
     /**
@@ -50,7 +50,7 @@ class DeptController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'  => 'required|string',
+            'dept_name'  => 'required|string',
             'sort'  => 'required|numeric',
             'parent_id' => 'required|numeric'
         ]);
@@ -94,15 +94,15 @@ class DeptController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name'  => 'required|string',
+            'dept_name'  => 'required|string',
             'sort'  => 'required|numeric',
             'parent_id' => 'required|numeric'
         ]);
-        $category = Category::findOrFail($id);
-        if ($category->update($request->all())){
-            return redirect(route('admin.category'))->with(['status'=>'更新成功']);
+        $dept = Dept::findOrFail($id);
+        if ($dept->update($request->all())){
+            return redirect(route('admin.dept'))->with(['status'=>'更新成功']);
         }
-        return redirect(route('admin.category'))->withErrors(['status'=>'系统错误']);
+        return redirect(route('admin.dept'))->withErrors(['status'=>'系统错误']);
     }
 
     /**
@@ -117,14 +117,14 @@ class DeptController extends Controller
         if (empty($ids)){
             return response()->json(['code'=>1,'msg'=>'请选择删除项']);
         }
-        $category = Category::with(['childs','articles'])->find($ids);
-        if (!$category){
+        $dept = Dept::with(['childs','users'])->find($ids);
+        if (!$dept){
             return response()->json(['code'=>1,'msg'=>'请选择删除项']);
         }
-        if (!$category->childs->isEmpty() || !$category->articles->isEmpty()){
-            return response()->json(['code'=>1,'msg'=>'该分类下有子分类或者文章，不能删除']);
+        if (!$dept->childs->isEmpty() || !$dept->users->isEmpty()){
+            return response()->json(['code'=>1,'msg'=>'该部门下有子部门或者用户，不能删除']);
         }
-        if ($category->delete()){
+        if ($dept->delete()){
             return response()->json(['code'=>0,'msg'=>'删除成功']);
         }
         return response()->json(['code'=>1,'msg'=>'删除失败']);
