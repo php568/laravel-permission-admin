@@ -6,9 +6,11 @@
         @can('system.toolslog.destroy')
             <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删除</button>
         @endcan
+        {{--
         @can('system.toolslog.create')
             <a class="layui-btn layui-btn-sm" href="{{ route('admin.toolslog.create') }}">添加</a>
         @endcan
+        --}}
             <button type="button" class="layui-btn layui-btn-sm" id="searchBtn">搜索</button>
     </div>
     <div class="layui-form" style="padding-top:15px">
@@ -18,6 +20,9 @@
         <div class="layui-form-mid layui-word-aux" style="float:none;display: inline;margin-right: 0">-</div>
         <div class="layui-input-inline">
             <input type="text" class="layui-input" placeholder="创建结束时间" name="end_time" id="end_time">
+        </div>
+        <div class="layui-input-inline">
+            <input type="text" name="creator" id="creator" placeholder="请输入创建人" class="layui-input" >
         </div>
         <div class="layui-input-inline">
             <input type="text" name="file_name" id="file_name" placeholder="请输入文件名称" class="layui-input" >
@@ -46,10 +51,10 @@
                     {checkbox: true,fixed: true}
                     ,{field: 'id', title: 'ID', sort: true,width:80}
                     ,{field: 'file_name', title: '文件名称'}
-                    ,{field: 'file_code', title: '文件编码'}
-                    ,{field: 'operate_type', title: '操作类型'}
-                    ,{field: 'modifier', title: '修改人'}
-                    ,{field: 'created_at', title: '修改时间'}
+                    // ,{field: 'file_code', title: '文件编码'}
+                    ,{field: 'operate_type', title: '操作类型',width:100}
+                    ,{field: 'creator', title: '创建人',width:80}
+                    ,{field: 'created_at', title: '创建时间',width:200}
                     ,{field: 'change_item', title: '变更项'}
                 ]]
             });
@@ -101,16 +106,19 @@
             //搜索
             laydate.render({
                 elem: "#start_time",
+                type: "datetime"
             });
             laydate.render({
                 elem: "#end_time",
+                type: "datetime"
             });
             $("#searchBtn").click(function () {
                 var start_time = $("#start_time").val()
                 var end_time = $("#end_time").val();
+                var creator = $("#creator").val();
                 var file_name = $("#file_name").val();
                 dataTable.reload({
-                    where:{start_time:start_time,end_time:end_time,file_name},
+                    where:{start_time:start_time,end_time:end_time,creator:creator,file_name:file_name},
                     page:{curr:1}
                 })
             })

@@ -25,10 +25,13 @@ class ToolsLogController extends Controller
     public function data(Request $request)
     {
         $model = new ToolsLog();
-        $res = $request->only(['start_time','end_time','file_name']);
+        $res = $request->only(['start_time','end_time','file_name','creator']);
         if (!empty($res)){
-            if ($res['title']){
-                $model = $model->where('file_name','like',''.$res['title'].'%');
+            if ($res['creator']){
+                $model = $model->where('creator','like',''.$res['creator'].'%');
+            }
+            if ($res['file_name']){
+                $model = $model->where('file_name','like',''.$res['file_name'].'%');
             }
             if ($res['start_time'] && !$res['end_time']){
                 $model = $model->where('created_at','>=',$res['start_time']);

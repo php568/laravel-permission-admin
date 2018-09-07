@@ -16,8 +16,8 @@ class CreateToolsLogTable extends Migration
         Schema::create('tools_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('file_name',255)->comment('文件名称');
-            $table->string('file_code',255)->comment('文件编码');
-            $table->integer('secret_type')->default(0)->comment('密级：机密-1、绝密-2、秘密-3、内部公开-0');
+            $table->string('file_code',255)->default('')->comment('文件编码');
+            $table->integer('secret_type')->default(0)->comment('密级：绝密-1、机密-2、秘密-3、内部公开-0');
             $table->integer('file_type')->default(0)->comment('文件类型：生产类-1、商务类-2、研发类-3、战略类-4、其他类-0');
             $table->integer('print_type')->default(0)->comment('打印：允许-1、不允许-0');
             $table->integer('label_type')->default(0)->comment('标签：显示-1、隐藏-0');
