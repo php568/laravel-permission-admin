@@ -40,4 +40,9 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
+    //用户所属部门
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
 }

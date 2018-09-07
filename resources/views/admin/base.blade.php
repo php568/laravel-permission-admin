@@ -18,18 +18,20 @@
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="{{ route('admin.index') }}"><i class="layui-icon">&#xe68e;</i> 后台首页</a>
             </li>
+            {{--
             <li class="layui-nav-item">
                 <a href="{{route('admin.message.mine')}}">我的消息<span class="layui-badge"
                                                                     id="unreadMessage">{{$unreadMessage}}</span></a>
-                {{--<dl class="layui-nav-child">
+                <dl class="layui-nav-child">
                     <dd><a href="">邮件管理</a></dd>
                     <dd><a href="">消息管理</a></dd>
                     <dd><a href="">授权管理</a></dd>
-                </dl>--}}
+                </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="{{route('admin.logs')}}">日志记录</a>
             </li>
+            --}}
 
         </ul>
         <ul class="layui-nav layui-layout-right">
@@ -138,7 +140,7 @@
             })
         });
     }
-
+    {{--
     //监听消息推送
     $(document).ready(function () {
         // 连接服务端
@@ -162,6 +164,7 @@
             $("#unreadMessage").text(parseInt(currNum) + 1);
         });
     });
+    --}}
 </script>
 @yield('script')
 </body>
