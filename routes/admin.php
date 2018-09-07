@@ -28,7 +28,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth'],funct
 //系统管理
 Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','permission:system.manage']],function (){
     //数据表格接口
-    Route::get('data','IndexController@data')->name('admin.data')->middleware('permission:system.role|system.user|system.permission|system.dept');
+    Route::get('data','IndexController@data')->name('admin.data')->middleware('permission:system.role|system.user|system.permission|system.dept|system.toolslog');
     //用户管理
     Route::group(['middleware'=>['permission:system.user']],function (){
         Route::get('user','UserController@index')->name('admin.user');
@@ -99,6 +99,19 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
         Route::put('dept/{id}/update', 'DeptController@update')->name('admin.dept.update')->middleware('permission:system.dept.edit');
         //删除部门
         Route::delete('dept/destroy', 'DeptController@destroy')->name('admin.dept.destroy')->middleware('permission:system.dept.destroy');
+    });
+    //工具日志管理
+    Route::group(['middleware' => 'permission:system.toolslog'], function () {
+        Route::get('toolslog/data', 'ToolsLogController@data')->name('admin.toolslog.data');
+        Route::get('toolslog', 'ToolsLogController@index')->name('admin.toolslog');
+        //添加工具日志
+        Route::get('toolslog/create', 'ToolsLogController@create')->name('admin.toolslog.create')->middleware('permission:system.toolslog.create');
+        Route::post('toolslog/store', 'ToolsLogController@store')->name('admin.toolslog.store')->middleware('permission:system.toolslog.create');
+        //编辑工具日志
+        Route::get('toolslog/{id}/edit', 'ToolsLogController@edit')->name('admin.toolslog.edit')->middleware('permission:system.toolslog.edit');
+        Route::put('toolslog/{id}/update', 'ToolsLogController@update')->name('admin.toolslog.update')->middleware('permission:system.toolslog.edit');
+        //删除工具日志
+        Route::delete('toolslog/destroy', 'ToolsLogController@destroy')->name('admin.toolslog.destroy')->middleware('permission:system.toolslog.destroy');
     });
 });
 
